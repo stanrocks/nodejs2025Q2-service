@@ -1,4 +1,4 @@
-# Home Library Service 
+# Home Library Service
 
 ## Prerequisites
 
@@ -16,6 +16,10 @@ git clone {repository URL}
 ```
 npm install
 ```
+
+## Create .env file
+
+Create new `.env` file. You can copy the content of `.env.example` to `.env` file.
 
 ## Running application
 
