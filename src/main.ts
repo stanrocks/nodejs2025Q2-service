@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import 'dotenv/config';
+
+import { AppModule } from './app.module';
 
 const PORT = Number(process.env.PORT) || 4000;
 
