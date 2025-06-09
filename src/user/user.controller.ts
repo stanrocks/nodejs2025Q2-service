@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   HttpCode,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { StatusCodes } from 'http-status-codes';
 
@@ -29,7 +30,7 @@ export class UserController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.userService.findOne(id);
   }
 
@@ -40,7 +41,7 @@ export class UserController {
 
   @Delete(':id')
   @HttpCode(StatusCodes.NO_CONTENT)
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseUUIDPipe) id: string) {
     return this.userService.remove(id);
   }
 }
