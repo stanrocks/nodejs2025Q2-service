@@ -6,11 +6,11 @@ export class FavoriteService {
     return `This action returns all favorite`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} favorite`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} favorite`;
   }
 }

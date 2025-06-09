@@ -6,7 +6,9 @@ import {
   Patch,
   Param,
   Delete,
+  ParseUUIDPipe,
 } from '@nestjs/common';
+
 import { FavoriteService } from './favorite.service';
 
 @Controller('favorite')
@@ -19,12 +21,12 @@ export class FavoriteController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.favoriteService.findOne(+id);
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
+    return this.favoriteService.findOne(id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.favoriteService.remove(+id);
+  remove(@Param('id', ParseUUIDPipe) id: string) {
+    return this.favoriteService.remove(id);
   }
 }
