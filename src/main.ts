@@ -18,6 +18,8 @@ async function bootstrap() {
   SwaggerModule.setup('doc', app, documentFactory);
 
   await app.listen(PORT);
+
+  console.log(`Swagger: http://localhost:${PORT}/doc`);
 }
 
 bootstrap();
