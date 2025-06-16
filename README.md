@@ -17,7 +17,17 @@ git clone {repository URL}
 npm install
 ```
 
-## Running application
+## Create .env file
+
+Create new `.env` file. You can copy the content of `.env.example` to `.env` file.
+
+## Run from docker
+
+```
+docker compose up --build
+```
+
+## Running locally
 
 ```
 npm start
