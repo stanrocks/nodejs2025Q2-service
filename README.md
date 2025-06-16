@@ -21,7 +21,13 @@ npm install
 
 Create new `.env` file. You can copy the content of `.env.example` to `.env` file.
 
-## Running application
+## Run from docker
+
+```
+docker compose up --build
+```
+
+## Running locally
 
 ```
 npm start
