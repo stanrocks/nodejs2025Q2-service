@@ -34,7 +34,7 @@ export class TrackService {
   }
 
   update(id: string, updateTrackDto: UpdateTrackDto) {
-    return `This action updates a #${id} track`;
+    return `This action updates a #${id} track with this: ${updateTrackDto}`;
   }
 
   remove(id: string) {

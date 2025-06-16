@@ -34,7 +34,7 @@ export class AlbumService {
   }
 
   update(id: string, updateAlbumDto: UpdateAlbumDto) {
-    return `This action updates a #${id} album`;
+    return `This action updates a #${id} album with this: ${updateAlbumDto}`;
   }
 
   remove(id: string) {

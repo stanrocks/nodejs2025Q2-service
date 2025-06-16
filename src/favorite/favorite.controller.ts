@@ -1,9 +1,9 @@
 import {
   Controller,
   Get,
-  Post,
-  Body,
-  Patch,
+  // Post,
+  // Body,
+  // Patch,
   Param,
   Delete,
   ParseUUIDPipe,
