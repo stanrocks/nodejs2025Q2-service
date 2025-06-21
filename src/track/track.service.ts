@@ -4,9 +4,14 @@ import { randomUUID } from 'node:crypto';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
 import { tracks } from '../db/db';
+import { LoggingService } from '../logger/logger.service';
 
 @Injectable()
 export class TrackService {
+  constructor(private logger: LoggingService) {
+    this.logger.setContext('Track Service');
+  }
+
   create(createTrackDto: CreateTrackDto) {
     const track = {
       id: randomUUID(),
@@ -14,12 +19,13 @@ export class TrackService {
     };
 
     tracks.push(track);
-    console.log('Track created');
+    this.logger.log('Track created successfully.');
 
     return track;
   }
 
   findAll() {
+    this.logger.log('Found all tracks successfully.');
     return tracks;
   }
 
@@ -27,6 +33,7 @@ export class TrackService {
     const current = tracks.find((track) => track.id === id);
 
     if (current) {
+      this.logger.log('Track found successfully.');
       return current;
     }
 
@@ -34,6 +41,8 @@ export class TrackService {
   }
 
   update(id: string, updateTrackDto: UpdateTrackDto) {
+    // to do
+    this.logger.log('Track updated successfully.');
     return `This action updates a #${id} track with this: ${updateTrackDto}`;
   }
 
@@ -42,6 +51,7 @@ export class TrackService {
 
     if (index !== -1) {
       tracks.splice(index, 1);
+      this.logger.log('Track removed successfully.');
       return true;
     }
 

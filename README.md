@@ -11,6 +11,14 @@
 git clone {repository URL}
 ```
 
+## Switch to proper branch
+
+For example:
+
+```
+git switch auth
+```
+
 ## Installing NPM modules
 
 ```
@@ -20,6 +28,15 @@ npm install
 ## Create .env file
 
 Create new `.env` file. You can copy the content of `.env.example` to `.env` file.
+
+### Logger
+
+To see logger in use:
+
+1. Set `LOG_LEVEL=3` in `.env` (this will show 'log' level of messages and above).
+2. In the first terminal run `npm start` to run the app.
+3. In the second terminal run `npm run test` to run tests that would run some CRUD operations
+4. See logs in the first terminal.
 
 ## Run from docker
 

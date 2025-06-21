@@ -4,13 +4,19 @@ import { ValidationPipe } from '@nestjs/common';
 import 'dotenv/config';
 
 import { AppModule } from './app.module';
+import { LoggingService } from './logger/logger.service';
 
 async function bootstrap() {
   const PORT = Number(process.env.PORT) || 4000;
 
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  });
 
   app.useGlobalPipes(new ValidationPipe());
+
+  const logger = new LoggingService();
+  app.useLogger(logger);
 
   const config = new DocumentBuilder()
     .setTitle('Home Library API')
@@ -20,9 +26,32 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('doc', app, documentFactory);
 
+  process.on('uncaughtException', (error, origin) => {
+    logger.fatal(
+      `${error.message}, 
+      ${error.stack},
+      ${origin}`,
+      'uncaughtException',
+    );
+    process.exit(1);
+  });
+
+  process.on('unhandledRejection ', (reason, promise) => {
+    logger.fatal(
+      `${reason}, 
+      at: ${promise}`,
+      'unhandledRejection',
+    );
+    process.exit(1);
+  });
+
   await app.listen(PORT);
 
-  console.log(`Swagger: http://localhost:${PORT}/doc`);
+  logger.always(
+    `Server started on http://localhost:${PORT}`,
+    'NestApplication',
+  );
+  logger.always(`Swagger: http://localhost:${PORT}/doc/`, 'NestApplication');
 }
 
 bootstrap();
