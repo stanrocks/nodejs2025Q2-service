@@ -4,9 +4,12 @@ import { randomUUID } from 'node:crypto';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
 import { artists } from 'src/db/db';
+import { LoggingService } from '../logger/logger.service';
 
 @Injectable()
 export class ArtistService {
+  constructor(private readonly logger: LoggingService) {}
+
   create(createArtistDto: CreateArtistDto) {
     const artist = {
       id: randomUUID(),
@@ -14,12 +17,13 @@ export class ArtistService {
     };
 
     artists.push(artist);
-    console.log('Artist created');
+    this.logger.log('Artist created successfully.', 'Artist Service');
 
     return artist;
   }
 
   findAll() {
+    this.logger.log('Found all artists successfully.', 'Artist Service');
     return artists;
   }
 
@@ -27,6 +31,7 @@ export class ArtistService {
     const current = artists.find((artist) => artist.id === id);
 
     if (current) {
+      this.logger.log('Artist found successfully.', 'Artist Service');
       return current;
     }
 
@@ -34,6 +39,8 @@ export class ArtistService {
   }
 
   update(id: string, updateArtistDto: UpdateArtistDto) {
+    // to do
+    this.logger.log('Artist updated successfully.', 'Artist Service');
     return `This action updates a #${id} artist with this: ${updateArtistDto}`;
   }
 
@@ -42,6 +49,7 @@ export class ArtistService {
 
     if (index !== -1) {
       artists.splice(index, 1);
+      this.logger.log('Artist removed successfully.', 'Artist Service');
       return true;
     }
 
