@@ -28,7 +28,11 @@ async function bootstrap() {
 
   await app.listen(PORT);
 
-  console.log(`Swagger: http://localhost:${PORT}/doc`);
+  logger.always(
+    `Server started on http://localhost:${PORT}`,
+    'NestApplication',
+  );
+  logger.always(`Swagger: http://localhost:${PORT}/doc/`, 'NestApplication');
 }
 
 bootstrap();
