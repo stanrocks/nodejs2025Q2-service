@@ -9,66 +9,58 @@ export class LoggingService extends ConsoleLogger {
     super();
     this.currentLogLevel = Number(process.env.LOG_LEVEL) || LogLevel.WARN;
   }
-  // private async writeLog(
-  //   level: string,
-  //   message: string,
-  //   stack?: string,
-  //   context?: string,
-  // ) {
-  //   console.log(level, message, stack, context);
-  // }
 
   private shouldLog(messageLevel: number): boolean {
     return messageLevel <= this.currentLogLevel;
   }
 
+  // private async writeToFile(
+  //   logLevel: string,
+  //   message: string,
+  //   stack?: string,
+  //   context?: string,
+  // ) {
+  //   console.log(logLevel, message, stack, context);
+  // }
+  //
+
+  always(message: any, context?: string) {
+    super.log(`[ALWAYS_SHOW] ${message}`, context);
+  }
+
   log(message: any, context?: string) {
     if (this.shouldLog(LogLevel.LOG)) {
-      console.log(
-        `[${LogLevelName[LogLevel.LOG].toUpperCase()}] ${context ? `[${context}] ` : ''}${message}`,
-      );
+      super.log(message, context);
     }
   }
 
-  fatal(message: any, trace?: string, context?: string) {
+  fatal(message: any, context?: string) {
     if (this.shouldLog(LogLevel.FATAL)) {
-      console.error(
-        `[${LogLevelName[LogLevel.FATAL].toUpperCase()}] ${context ? `[${context}] ` : ''}${message}`,
-        trace,
-      );
+      super.fatal(message, context);
     }
   }
 
-  error(message: any, trace?: string, context?: string) {
+  error(message: any, stack?: string, context?: string) {
     if (this.shouldLog(LogLevel.ERROR)) {
-      console.error(
-        `[${LogLevelName[LogLevel.ERROR].toUpperCase()}] ${context ? `[${context}] ` : ''}${message}`,
-        trace,
-      );
+      super.error(message, stack, context);
     }
   }
 
   warn(message: any, context?: string) {
     if (this.shouldLog(LogLevel.WARN)) {
-      console.warn(
-        `[${LogLevelName[LogLevel.WARN].toUpperCase()}] ${context ? `[${context}] ` : ''}${message}`,
-      );
+      super.warn(message, context);
     }
   }
 
   debug(message: any, context?: string) {
     if (this.shouldLog(LogLevel.DEBUG)) {
-      console.debug(
-        `[${LogLevelName[LogLevel.DEBUG].toUpperCase()}] ${context ? `[${context}] ` : ''}${message}`,
-      );
+      super.debug(message, context);
     }
   }
 
   verbose(message: any, context?: string) {
     if (this.shouldLog(LogLevel.VERBOSE)) {
-      console.log(
-        `[${LogLevelName[LogLevel.VERBOSE].toUpperCase()}] ${context ? `[${context}] ` : ''}${message}`,
-      );
+      super.verbose(message, context);
     }
   }
 }
