@@ -26,6 +26,25 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('doc', app, documentFactory);
 
+  process.on('uncaughtException', (error, origin) => {
+    logger.fatal(
+      `${error.message}, 
+      ${error.stack},
+      ${origin}`,
+      'uncaughtException',
+    );
+    process.exit(1);
+  });
+
+  process.on('unhandledRejection ', (reason, promise) => {
+    logger.fatal(
+      `${reason}, 
+      at: ${promise}`,
+      'unhandledRejection',
+    );
+    process.exit(1);
+  });
+
   await app.listen(PORT);
 
   logger.always(
