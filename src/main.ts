@@ -15,7 +15,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  const logger = app.get(LoggingService);
+  const logger = new LoggingService();
   app.useLogger(logger);
 
   const config = new DocumentBuilder()

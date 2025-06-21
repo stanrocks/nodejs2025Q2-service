@@ -8,7 +8,9 @@ import { LoggingService } from '../logger/logger.service';
 
 @Injectable()
 export class AlbumService {
-  constructor(private readonly logger: LoggingService) {}
+  constructor(private logger: LoggingService) {
+    this.logger.setContext('Album Service');
+  }
 
   create(createAlbumDto: CreateAlbumDto) {
     const album = {
@@ -17,13 +19,13 @@ export class AlbumService {
     };
 
     albums.push(album);
-    this.logger.log('Album created successfully.', 'Album Service');
+    this.logger.log('Album created successfully.');
 
     return album;
   }
 
   findAll() {
-    this.logger.log('Found all albums successfully.', 'Album Service');
+    this.logger.log('Found all albums successfully.');
     return albums;
   }
 
@@ -31,7 +33,7 @@ export class AlbumService {
     const current = albums.find((album) => album.id === id);
 
     if (current) {
-      this.logger.log('Album found successfully.', 'Album Service');
+      this.logger.log('Album found successfully.');
       return current;
     }
 
@@ -40,7 +42,7 @@ export class AlbumService {
 
   update(id: string, updateAlbumDto: UpdateAlbumDto) {
     // to do
-    this.logger.log('Album updated successfully.', 'Album Service');
+    this.logger.log('Album updated successfully.');
     return `This action updates a #${id} album with this: ${updateAlbumDto}`;
   }
 
@@ -49,7 +51,7 @@ export class AlbumService {
 
     if (index !== -1) {
       albums.splice(index, 1);
-      this.logger.log('Album removed successfully.', 'Album Service');
+      this.logger.log('Album removed successfully.');
       return true;
     }
 

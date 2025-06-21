@@ -1,7 +1,7 @@
-import { Injectable, ConsoleLogger } from '@nestjs/common';
+import { Injectable, Scope, ConsoleLogger } from '@nestjs/common';
 import { LogLevel, LogLevelName } from './logger.levels';
 
-@Injectable()
+@Injectable({ scope: Scope.TRANSIENT })
 export class LoggingService extends ConsoleLogger {
   private currentLogLevel: number;
 
@@ -25,12 +25,16 @@ export class LoggingService extends ConsoleLogger {
   //
 
   always(message: any, context?: string) {
-    super.log(`[ALWAYS_SHOW] ${message}`, context);
+    super.log(`${message}`, context);
   }
 
   log(message: any, context?: string) {
     if (this.shouldLog(LogLevel.LOG)) {
-      super.log(message, context);
+      if (context !== undefined) {
+        super.log(message, context);
+      } else {
+        super.log(message);
+      }
     }
   }
 
@@ -48,19 +52,31 @@ export class LoggingService extends ConsoleLogger {
 
   warn(message: any, context?: string) {
     if (this.shouldLog(LogLevel.WARN)) {
-      super.warn(message, context);
+      if (context !== undefined) {
+        super.warn(message, context);
+      } else {
+        super.warn(message);
+      }
     }
   }
 
   debug(message: any, context?: string) {
     if (this.shouldLog(LogLevel.DEBUG)) {
-      super.debug(message, context);
+      if (context !== undefined) {
+        super.debug(message, context);
+      } else {
+        super.debug(message);
+      }
     }
   }
 
   verbose(message: any, context?: string) {
     if (this.shouldLog(LogLevel.VERBOSE)) {
-      super.verbose(message, context);
+      if (context !== undefined) {
+        super.verbose(message, context);
+      } else {
+        super.verbose(message);
+      }
     }
   }
 }

@@ -8,7 +8,9 @@ import { LoggingService } from '../logger/logger.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly logger: LoggingService) {}
+  constructor(private logger: LoggingService) {
+    this.logger.setContext('User Service');
+  }
 
   create(createUserDto: CreateUserDto) {
     const date = Date.now();
@@ -22,7 +24,7 @@ export class UserService {
     };
 
     users.set(user.id, user);
-    this.logger.log('User created successfully.', 'User Service');
+    this.logger.log('User created successfully.');
 
     delete user.password;
     return user;
@@ -32,7 +34,7 @@ export class UserService {
     const usersPublicData = Array.from(users.values()).map(
       (user) => delete user.password,
     );
-    this.logger.log('Found all users successfully.', 'User Service');
+    this.logger.log('Found all users successfully.');
     return usersPublicData;
   }
 
@@ -43,14 +45,14 @@ export class UserService {
       throw new NotFoundException(`User with id ${id} not found`);
     }
 
-    this.logger.log('User found successfully.', 'User Service');
+    this.logger.log('User found successfully.');
     delete user.password;
     return user;
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
     // to do
-    this.logger.log('User updated successfully.', 'User Service');
+    this.logger.log('User updated successfully.');
     return `This action updates a #${id} user with this: ${updateUserDto}`;
   }
 
@@ -60,7 +62,7 @@ export class UserService {
     }
 
     users.delete(id);
-    this.logger.log('User removed successfully.', 'User Service');
+    this.logger.log('User removed successfully.');
     return true;
   }
 }
